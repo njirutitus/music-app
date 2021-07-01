@@ -2,6 +2,18 @@
 
 Ideally music lovers should be able to easily to access their favorite songs at anytime in an organized way. However in reality the songs are usually scattered in different folders on the user’s different devices. This leads to wastage of time when looking for a favorite song or even proofs impossible if all the storage devices are not at hand. Viberr is a music web application that will be designed to help users store music albums and songs in the cloud and be able to access and listen anytime. The app will be optimized for viewing on different screen sizes to enhance user experience. It will also help users easily share music and discover the most listened to songs, mark favorites and also be able to download songs or entire albums.
 
+## Table of contents
+
+- [Viberr Music App](#viberr-music-app)
+  - [Table of contents](#table-of-contents)
+  - [Objectives](#objectives)
+    - [Specific objectives](#specific-objectives)
+  - [Users](#users)
+  - [Functional Requirements](#functional-requirements)
+    - [Users Module](#users-module)
+    - [Albums Module](#albums-module)
+    - [Songs Module](#songs-module)
+
 ## Objectives
 
 The major objective of this project was to develop a music app that enhances a user’s music experience.
