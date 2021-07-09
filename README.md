@@ -168,3 +168,14 @@ One will be able to search for music using the search feature that will be place
 | is_favorite  | boolean             | 1      |
 | album        | bigint unsigned(FK) | 20     |
 | last_updated | timestamp           | 1      |
+
+#### Feedback Table
+
+| Field name   | Data Type           | Length |
+| ------------ | ------------------- | ------ |
+| id           | bigint unsigned(PK) | 20     |
+| subject      | tinytext            | 256    |
+| body         | text                | 60000    |
+| is_read      | boolean             | 1      |
+| is_replied   | boolean             | 1      |
+| date_sent    | timestamp           | 1      |
