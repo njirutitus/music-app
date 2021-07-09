@@ -21,7 +21,7 @@
 
      foreach ($_POST as $key => $value ) {
          if($value == '') {
-             $errors[$$key] = 'This field is required';
+             $errors[$key] = 'This field is required';
          }
      }
 
