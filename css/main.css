@@ -1,0 +1,56 @@
+* {
+  margin: 0;
+}
+
+.container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.container {
+  background-color: yellowgreen;
+}
+
+nav {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  background-color: yellow;
+}
+
+nav > a {
+  text-decoration: none;
+  cursor: pointer;
+}
+
+main {
+  display: flex;
+  flex-direction: row;
+  flex-grow: 1;
+  background-image: url("../images/bg.jpg");
+  color: white;
+}
+
+aside {
+  width: 100px;
+  background-color: lavender;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 15px;
+  font-size: 1.2em;
+  letter-spacing: 0.2em;
+}
+
+article {
+  flex: 1;
+}
+
+.nav {
+  list-style-type: none;
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; */
+  align-items: center;
+}
