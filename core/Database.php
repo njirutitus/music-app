@@ -1,6 +1,6 @@
 <?php
 $host = 'localhost';
-$dbname = 'musik';
+$dbname = 'viberr';
 $user = 'root';
 $pass = '';
 

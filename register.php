@@ -1,99 +1,95 @@
 <?php
  include_once './layouts/main/header.php';
 
- // superglobal arrays
- // $_POST
- // $_GET
- // $_SERVER
-
  require_once './core/Database.php';
 
- 
- 
- if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+ if($_SERVER['REQUEST_METHOD'] == 'POST') {
      $first_name = $_POST['first_name'];
      $last_name = $_POST['last_name'];
      $email = $_POST['email'];
      $password = $_POST['password'];
      $confirm_password = $_POST['confirm_password'];
 
-     $errors = array();
+     $errors = [];
 
-     foreach ($_POST as $key => $value ) {
-         if($value == '') {
-             $errors[$key] = 'This field is required';
+     if(!$first_name) $errors['first_name'] = "This Field is required";
+     if(!$last_name) $errors['last_name'] = "This Field is required";
+     if(!$email) $errors['email'] = "This Field is required";
+     if(!$password) $errors['password'] = "This Field is required";
+     if(!$confirm_password) $errors['confirm_password'] = "This Field is required";
+
+     if($email) {
+         if(!filter_var($email,FILTER_VALIDATE_EMAIL)) {
+            $errors['email'] = "This Field must be a valid email";
+         }
+
+     }
+
+     if($password && $confirm_password) {
+         if($password != $confirm_password) {
+            $errors['confirm_password'] = "Passwords do not match";
          }
      }
 
-     if (! strcmp($password,$confirm_password) == 0) {
-         $errors['password_confirm'] = "Passwords do not match";
-     }
+     if(!$errors) {
 
-     if(strlen($password) < 8) {
+         $sql = 'INSERT INTO user(first_name,last_name,email,password) VALUES(?,?,?,?)';
+         $command = $db->prepare($sql);
 
-     }
-     else {
          $password = password_hash($password,PASSWORD_DEFAULT);
-     }
 
-     if($errors) {
-         echo "Data not valid";
-         exit();
-     }
+         $result = $command->execute(array($first_name,$last_name,$email,$password));
 
-     if (!$errors) {
-
-        try {
-
-            $statement = "INSERT INTO user(first_name,last_name,email,password) values(?,?,?,?)";
-            $data = array($first_name,$last_name,$email,$password);
-            $query = $db->prepare($statement);
-            $query->execute($data);
-            $_SESSION['success'] = "User Registered Successfully";
-            header('location: index.php');
-        }
-        catch(PDOException $e) {
-            $_SESSION['success'] = "An error occurred";
-        }
+         if($result) {
+             $_SESSION['success'] = "Registration successfull";
+             header('location: index.php');
+         }
+         else {
+             $_SESSION['error'] = "Unable to Register";
+         }
      }
  }
+
 
 
 ?>
 
 <main class="container">
-    <h1>Create an account</h1>
-    <form action="" method="post" enctype="multipart/form-data">
+    <div class="row">
+        <div class="col-12 col-sm-6 m-auto">
 
-        <div class="mb-3">
-            <label for="first_name">First Name</label>
-            <input type="text" class="form-control" id="first_name" name="first_name" required>
-        </div>
+            <h1>Create an account</h1>
 
-        <div class="mb-3">
-            <label for="last_name">Last Name</label>
-            <input type="text" class="form-control" id="last_name" name="last_name" required>
-        </div>
+            <form action="" method="post" enctype="multipart/form-data">
 
-        <div class="mb-3">
-            <label for="email">Email</label>
-            <input type="email" class="form-control" id="email" name="email" required>
-        </div>
+                <div class="mb-3">
+                    <label for="first_name">First Name</label>
+                    <input type="text" class="form-control" id="first_name" name="first_name" required>
+                </div>
 
-        <div class="mb-3">
-            <label for="password">Password</label>
-            <input type="password" class="form-control" id="password" name="password" required>
-        </div>
+                <div class="mb-3">
+                    <label for="last_name">Last Name</label>
+                    <input type="text" class="form-control" id="last_name" name="last_name" required>
+                </div>
 
-        <div class="mb-3">
-            <label for="confirm_password">Confirm Password</label>
-            <input type="password" class="form-control" id="confirm_password" name="confirm_password" required>
-        </div>
+                <div class="mb-3">
+                    <label for="email">Email</label>
+                    <input type="email" class="form-control" id="email" name="email" required>
+                </div>
 
-        <div class="mb-3">
-            <input type="submit" class="form-control btn btn-sm btn-primary" value="Submit" name="submit">
+                <div class="mb-3">
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control" id="password" name="password" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="confirm_password">Confirm Password</label>
+                    <input type="password" class="form-control" id="confirm_password" name="confirm_password" required>
+                </div>
+                <input type="submit" class="btn btn-primary" value="Submit" name="submit">
+            </form>
         </div>
-    </form>
+    </div>
 </main>
 
 <?php
